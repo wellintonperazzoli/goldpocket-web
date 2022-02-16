@@ -1,6 +1,6 @@
 export const BaseUrl  = window.location.href.includes("localhost") ? 
-    "https://localhost:44346" :
-    "https://localhost:44346";
+    "https://localhost:49161" :
+    "http://goldpocket.azurewebsites.net/api/";
 
 const RequestUrl = {
     Token: BaseUrl + "/api/Auth/Token/",
