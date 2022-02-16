@@ -1,0 +1,46 @@
+// html, body {
+//     background-color: var(--bs-dark);
+//     color: var(--bs-light);
+// }
+
+
+
+.form-floating {
+    color: var(--bs-dark);
+}
+
+.loginBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10vh;
+}
+
+    .loginBox .col {
+        max-width: 400px;
+        padding: 10px;
+    }
+
+.loginTitle {
+    color: var(--goldpocket);
+    font-weight: 700;
+    letter-spacing: 3px;
+    opacity: 0.7;
+}
+
+.form-label {
+    cursor: pointer;
+}
+
+.rememberMe {
+    margin-top: 0px;
+    position: absolute;
+    top: 4px;
+    left: 3px;
+}
+
+.form-actions {
+    position: relative;
+}

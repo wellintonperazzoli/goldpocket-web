@@ -1,0 +1,67 @@
+.searchbox {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0;
+    width: 100%;
+    
+
+    input, select, textarea {
+        padding: 6px;
+        height: 3em;
+        line-height: $form-input-line-height;
+        font-size: $form-input-font-size;
+        border: none;
+        border-radius: $form-border-radius;
+        box-sizing: border-box;
+        width: 100%;
+        outline: none;
+        background-color: #FFF;
+        margin: 0;
+        white-space: normal;
+        line-height: $input-font-size;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        z-index: 1;
+        opacity: .5;
+
+        &:focus,
+        &:active {
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+
+.sortby {
+    position: relative;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    
+    &.des::after {    
+        font-family: "Font Awesome 5 Free";
+        content: "\f078";
+        position: absolute;
+        font-size: .75em;
+        right: -1.5em;
+        top: calc(50% - 0.7em);
+        z-index: 1;
+        color: #00000080;
+    }
+
+    &.asc::after{
+        font-family: "Font Awesome 5 Free";
+        content: "\f077";
+        position: absolute;
+        font-size: .75em;
+        right: -1.5em;
+        top: calc(50% - 0.7em);
+        z-index: 1;
+        color: #00000080;
+    }
+}

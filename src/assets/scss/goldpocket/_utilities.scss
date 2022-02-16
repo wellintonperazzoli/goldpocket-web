@@ -1,0 +1,113 @@
+﻿$display-list: (none, initial, block, inline-block, flex, table-cell);
+$base-size: 0.33em;
+$size-parts: 12;
+$size-range: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+$position-range: (
+    t: top,
+    b: bottom,
+    l: left,
+    r: right,
+);
+$modifiers-types: (
+    m: margin,
+    p: padding,
+);
+
+$flex-positions: (
+    center,
+    left,
+    right,
+    space-around,
+    space-between,
+    space-evenly,
+    flex-start,
+    flex-end
+);
+
+.margin-center {
+    margin: 0 auto;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+@each $f in $flex-positions {
+    .flex-#{$f} {
+        display: flex;
+        justify-content: $f;
+        align-items: center;
+    }    
+}
+
+@each $s in $size-range {
+    .width-#{$s}0 {
+        width: calc($s * 10%);
+    }
+}
+
+.align-center {
+    align-items: center !important;
+}
+
+@each $display in $display-list {
+    .d-#{$display} {
+        display: $display !important;
+    }
+}
+
+@each $name, $size in $grid-breakpoints {
+    @each $display in $display-list {
+        @media (min-width: $size) {
+            .d-#{$name}-#{$display} {
+                display: $display !important;
+            }
+        }
+    }
+}
+
+$text-align: (center, left, right);
+
+@each $ta in $text-align {
+    .text-#{$ta} {
+        text-align: $ta !important;
+    }
+}
+
+@each $n in $size-range {
+    @each $m, $mn in $modifiers-types {
+        .#{$m}-#{$n} {
+            #{$mn}: calc($n * $base-size) !important;
+        }
+
+        @each $p, $pn in $position-range {
+            .#{$m}#{$p}-#{$n} {
+                #{$mn}-#{$pn}: calc($n * $base-size) !important;
+            }
+        }
+    }
+}
+
+@each $name, $base, $hover in $color-list {
+    .#{$name} {
+        color: $base !important;
+    }
+
+    .border-#{$name} {
+        border: 1px solid $base !important;
+    }
+
+    @each $p, $pn in $position-range {
+        .border-#{$p}-#{$name} {
+            border-#{$pn}: 1px solid $base !important;
+        }
+
+        @each $s, $size in $grid-breakpoints {
+            @media (min-width: $size) {
+                .border-#{$s}-#{$p}-#{$name} {
+                    border-#{$pn}: 1px solid $base !important;
+                }
+            }
+        }
+    }
+}

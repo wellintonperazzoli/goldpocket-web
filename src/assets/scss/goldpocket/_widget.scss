@@ -1,0 +1,57 @@
+﻿//table.css
+$widget-padding: .75em;
+$widget-title-bg: $menu-title-bg;
+$widget-title-padding: $menu-item-padding $widget-padding; 
+$widget-title-font-size: $menu-img-height;
+$widget-title-heigth: $menu-title-height;
+$widget-borde-radius: $default-border-radius;
+
+.widget {
+    background: $menu-bg;
+    border: 1px solid $default;
+    border-radius: $default-border-radius;
+    overflow: hidden;
+
+    &__title {
+        font-weight: 600;
+        padding: $widget-title-padding;
+        opacity: .8;
+        font-size: $widget-title-font-size;
+        border-bottom: 1px solid $bg-default;
+        background: $widget-title-bg;
+        box-sizing: border-box;
+
+        &--light{
+            //padding: .5em $widget-padding;
+            //font-size: calc($widget-title-font-size * .7);
+            background: $light;
+            border-top: 1px solid $widget-title-bg;
+            border-bottom: 1px solid $widget-title-bg;
+        }
+
+        &--sm {
+            font-size: 1.3em;
+        }
+    }
+
+    &__subtitle {
+        padding: $widget-padding;
+        font-weight: 600;
+        border-top: 1px solid $bg-default;
+        border-bottom: 1px solid $bg-default;
+    }
+
+    &__body {
+        padding: $widget-padding;
+    }
+
+    &__chart {
+        padding: calc($widget-padding * 2);
+        height: 400px !important;
+        position: relative;
+    }
+
+    &__actions {
+        padding: $widget-padding;
+    }
+}

@@ -1,0 +1,189 @@
+﻿//table.css
+
+$table-min-width: calc($xs - ($gap * 2));
+$row-padding: $widget-padding;
+$row-min-width: calc($table-min-width - ($row-padding * 2));
+$row-stripe-color: #f7f7f7;
+$row-hover-color: #ebebeb;
+$table-row-height: 3em;
+
+.table-box {
+    min-width: $table-min-width;
+    overflow: auto;
+
+    .table-header {
+        font-weight: 600;
+        padding: 0.75em;
+        opacity: 0.8;
+        font-size: 1.2em;
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .table {
+        width: 100%;
+        border-spacing: 0;
+
+        td,
+        th {
+            align-items: center;
+            text-align: center;
+            border: none;
+            border-collapse: unset;
+            border-spacing: 0px;
+            white-space: nowrap;
+            padding: calc($row-padding/2);
+            min-width: 100px;
+
+            &:first-child {
+                padding-left: $row-padding;
+                text-align: left;
+            }
+
+            &:last-child {
+                //padding-right: $row-padding;
+                text-align: right;
+            }
+        }
+
+        tr {
+            height: $table-row-height;
+        }
+
+        thead tr {
+            font-weight: 600;
+
+            th {
+                border-top: 1px solid $row-stripe-color;
+                border-bottom: 1px solid $row-stripe-color;
+            }
+        }
+
+        tbody {
+            tr {
+                background: $row-stripe-color;
+            }
+
+            tr:nth-of-type(2n) {
+                background: $light;
+            }
+
+            // tr:only-child {
+            //     background: $light;
+            // }
+
+            tr:hover {
+                background: $row-hover-color !important;
+            }
+        }
+    }
+
+    .table-info {
+        display: flex;
+        flex-direction: column;
+
+        & > div {
+            display: flex;
+            padding: 0.5em 0;
+            //background: $row-stripe-color;
+            align-items: center;
+
+            div {
+                padding-left: $row-padding;
+                width: 100px;
+                font-weight: 700;
+
+                @media (min-width: $sm) {
+                    width: 200px;
+                }
+            }
+
+            div:nth-of-type(2n) {
+                padding-left: 0;
+                flex: 1;
+                font-weight: 400;
+            }
+        }
+
+        & > div:nth-of-type(2n) {
+            background: $light;
+        }
+        & > div:hover {
+            background: $row-hover-color !important;
+        }
+    }
+}
+
+.pagination {
+    padding: 0;
+    .pagination-info {
+        color: $font-color;
+        opacity: 0.7;
+        padding: $row-padding;
+    }
+    ul {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        padding-right: $row-padding;
+        margin: 5px 0;
+
+        li {
+            position: relative;
+            list-style: none;
+            padding: $row-padding;
+
+            button {
+                padding: 0;
+                border: 0;
+                background: transparent;
+                border-radius: $btn-border-radius;
+                text-align: $btn-txt-align;
+                cursor: pointer;
+                font-weight: 500;
+                display: inline-block;
+                text-transform: capitalize;
+                font-size: $btn-font-size;
+            }
+
+            &.Prev a::before, &.Prev button::before {
+                font-family: "Font Awesome 5 Free";
+                content: '\f053';
+                left: 0;
+                height: 1em;
+                width: 1em;
+            }
+
+            &.Next a::before, &.Next button::before {
+                font-family: "Font Awesome 5 Free";
+                content: '\f054';
+                left: 0;
+                height: 1em;
+                width: 1em;
+            }
+
+            &.active a:hover, &.active button:hover {
+                color: $font-color;
+            }
+
+            &.active::before {
+                content: "";
+                background: #d4aa00;
+                position: absolute;
+                width: 100%;
+                top: 0;
+                right: 0;
+                height: 100%;
+                opacity: 0.2;
+                border-radius: 6px;
+                transition: all 0.3s ease;
+            }
+
+            &.inactive button, &.inactive a {
+                opacity: .1;
+                cursor: auto;
+            }
+        }
+    }
+}

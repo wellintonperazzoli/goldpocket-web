@@ -1,0 +1,68 @@
+﻿//goldpocket colors
+$brand: rgb(212, 170, 0, 1);
+$brand-75: rgb(212, 170, 0, .75);
+$brand-50: rgb(212, 170, 0, .50);
+$brand-25: rgb(212, 170, 0, .25);
+$brand-hover: rgb(212, 170, 0, 1);
+$light-brand: #f6eecc;
+
+//Default color setup
+$light: #fff;
+$light-hover: #808e9b;
+$dark: #1e272e;
+$dark-hover: #485460;
+$default: #d2dae2;
+$default-hover: $brand;
+
+//Information colors
+$info: rgba(126, 126, 126, 0.9);
+$info-hover: rgba(126, 126, 126, 1);
+$success: rgba(39, 174, 96, .9);
+$success-hover: rgba(39, 174, 96, 1);
+$primary: rgba(98, 105, 206, 0.9);
+$primary-hover: rgba(98, 105, 206, 1);
+$secondary: #00d8d6;
+$secondary-hover: #34e7e4;
+$warning: #f1c40f;
+$warning-hover: #d4aa00;
+$danger: #e74c3c;
+$danger-hover: #c0392b;
+
+$facebook-color: #4267B2;
+
+$font-color: #495057;
+
+$default-border-radius: 0;
+
+$color-list: (
+    default $default $brand,
+    primary $primary $primary-hover,
+    secondary $secondary $secondary-hover,
+    info $info $info-hover,
+    warning $warning $warning-hover,
+    success $success $success-hover,
+    danger $danger $danger-hover
+);
+
+$link-crud-list: (
+    new "\f067" $success $success-hover,
+    view "\f06e" $info $info-hover,
+    edit "\f304" $brand $brand-hover,
+    delete "\f1f8" $danger $danger-hover,
+);
+//navbar color
+$header-color-light: rgba(255, 255, 255, 0.65);
+$header-color-dark: rgba(0, 0, 0, 0.65);
+
+//breakpoints
+$grid-size: 12;
+$xs: 360px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1600px;
+
+$grid-breakpoints: (xs $xs, sm $sm, md $md, lg $lg, xl $xl, xxl $xxl);
+$grid-numbers: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+$default-transition: all 0.3s ease;

@@ -1,0 +1,60 @@
+﻿// grid.css
+.grid {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: grid;
+    gap: $gap;
+    grid-template-columns: repeat(12, 1fr);
+
+    & > * {
+        grid-column: span 12;
+    }
+}
+
+@each $name, $size in $grid-breakpoints {
+    @each $number in $grid-numbers {
+        @media (max-width: $size) {
+            .grid {
+                & > .col-#{$name}-#{$number} {
+                    grid-column: span 12;
+                }
+            }
+            .row {
+                & > .col-#{$name}-#{$number} {
+                    width: 100%;
+                }
+            }
+        }
+        @media (min-width: calc($size + 1px)) {
+            .grid {
+                & > .col-#{$name}-#{$number} {
+                    grid-column: span $number;
+                }
+            }
+            .row {
+                & > .col-#{$name}-#{$number} {
+                    width: calc((100% / $grid-size) * $number) !important;
+                }
+            }
+        }
+    }
+}
+
+@each $number in $grid-numbers {
+    .grid {
+        & > .col-#{$number} {
+            grid-column: span $number;
+        }
+    }
+    .row {
+        & > .col-#{$number} {
+            width: calc((100% / $grid-size) * $number) !important;
+        }
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,114 @@
+$loading-size: 5px;
+$loading-mov: 6px;
+
+.loading-box {
+    height: calc($loading-mov * 2) ;
+    width: calc($loading-mov * 2);
+}
+
+.loading {
+    margin: 0;
+    width: $loading-size;
+    height: $loading-size;
+    border-radius: 100%;
+
+    background-color: $brand;
+    box-shadow: $loading-mov 0px 0px $brand-25,
+    $loading-mov $loading-mov 0px $brand-50,
+    0px $loading-mov 0px $brand-75;
+    -webkit-box-shadow: $loading-mov 0px 0px $brand-25,
+    $loading-mov $loading-mov 0px $brand-50,
+    0px $loading-mov 0px $brand-75;
+
+    -webkit-animation: loading 1s linear infinite;
+    -moz-animation: loading 1s linear infinite;
+    animation: loading 1s linear infinite;
+
+    @-moz-keyframes loading { 
+        25% { 
+            background-color: $brand-75;
+            box-shadow: $loading-mov 0px 0px $brand ,
+            $loading-mov $loading-mov 0px $brand-25,
+            0px $loading-mov 0px $brand-50;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand ,
+            $loading-mov $loading-mov 0px $brand-25,
+            0px $loading-mov 0px $brand-50;
+        } 
+        50% { 
+            background-color: $brand-50;
+            box-shadow: $loading-mov 0px 0px $brand-75 ,
+            $loading-mov $loading-mov 0px $brand,
+            0px $loading-mov 0px $brand-25;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand-75 ,
+            $loading-mov $loading-mov 0px $brand,
+            0px $loading-mov 0px $brand-25;
+        }  
+        75% { 
+            background-color: $brand-25;
+            box-shadow: $loading-mov 0px 0px $brand-50 ,
+            $loading-mov $loading-mov 0px $brand-75,
+            0px $loading-mov 0px $brand;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand-50 ,
+            $loading-mov $loading-mov 0px $brand-75,
+            0px $loading-mov 0px $brand;
+        } 
+    }
+    @-webkit-keyframes loading { 
+        25% { 
+            background-color: $brand-75;
+            box-shadow: $loading-mov 0px 0px $brand ,
+            $loading-mov $loading-mov 0px $brand-25,
+            0px $loading-mov 0px $brand-50;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand ,
+            $loading-mov $loading-mov 0px $brand-25,
+            0px $loading-mov 0px $brand-50;
+        } 
+        50% { 
+            background-color: $brand-50;
+            box-shadow: $loading-mov 0px 0px $brand-75 ,
+            $loading-mov $loading-mov 0px $brand,
+            0px $loading-mov 0px $brand-25;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand-75 ,
+            $loading-mov $loading-mov 0px $brand,
+            0px $loading-mov 0px $brand-25;
+        }  
+        75% { 
+            background-color: $brand-25;
+            box-shadow: $loading-mov 0px 0px $brand-50 ,
+            $loading-mov $loading-mov 0px $brand-75,
+            0px $loading-mov 0px $brand;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand-50 ,
+            $loading-mov $loading-mov 0px $brand-75,
+            0px $loading-mov 0px $brand;
+        } 
+    }
+    @keyframes loading { 
+        25% { 
+            background-color: $brand-75;
+            box-shadow: $loading-mov 0px 0px $brand ,
+            $loading-mov $loading-mov 0px $brand-25,
+            0px $loading-mov 0px $brand-50;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand ,
+            $loading-mov $loading-mov 0px $brand-25,
+            0px $loading-mov 0px $brand-50;
+        } 
+        50% { 
+            background-color: $brand-50;
+            box-shadow: $loading-mov 0px 0px $brand-75 ,
+            $loading-mov $loading-mov 0px $brand,
+            0px $loading-mov 0px $brand-25;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand-75 ,
+            $loading-mov $loading-mov 0px $brand,
+            0px $loading-mov 0px $brand-25;
+        }  
+        75% { 
+            background-color: $brand-25;
+            box-shadow: $loading-mov 0px 0px $brand-50 ,
+            $loading-mov $loading-mov 0px $brand-75,
+            0px $loading-mov 0px $brand;
+            -webkit-box-shadow: $loading-mov 0px 0px $brand-50 ,
+            $loading-mov $loading-mov 0px $brand-75,
+            0px $loading-mov 0px $brand;
+        } 
+    }
+}

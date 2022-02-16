@@ -1,0 +1,62 @@
+$alert-list: (
+    success $success "\f058",
+    danger $danger "\f057",
+    warning $warning "\f06a",
+    info $info "\f05a"
+);
+
+.alerts {
+    position: absolute;
+    right: 0;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.alert {
+    position: relative;
+    top: 80px;
+    right: -260px;
+    width: 250px;
+    border: 1px solid $font-color;
+    border-radius: $default-border-radius;
+    text-align: right;
+    background: $light;
+    padding: 1.5em;
+    padding-left: 2.5em;
+    box-shadow: $menu-box-shadow;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 2s ease;
+    opacity: 0.9;
+    z-index: 99;
+
+    &.alert-show {
+        right: -1px;
+    }
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+@each $name, $color, $ico in $alert-list {
+    .alert-#{$name} {
+        background: $color;
+        color: $light;
+
+        
+        &::before {
+            font-family: "Font Awesome 5 Free";
+            content: $ico;
+            top: calc(50% - .75em);
+            left: .5em;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            font-size: 1.5em;
+        }
+    }
+}

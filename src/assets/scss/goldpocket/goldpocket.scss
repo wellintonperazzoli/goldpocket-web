@@ -1,0 +1,27 @@
+﻿// Goldpocket.css
+
+
+// load font awesome
+@import "../../lib/fontawesome/scss/fontawesome";
+@import "../../lib/fontawesome/scss/solid";
+@import "../../lib/fontawesome/scss/brands";
+
+
+// load default variables 
+@import "variables";
+
+
+// load functionalities
+@import "utilities";
+@import "template";
+@import "menu";
+@import "btn";
+@import "grid";
+@import "widget";
+@import "table";
+@import "form";
+@import "alert";
+@import "login";
+@import "customboxes";
+@import "modal";
+@import "loading";

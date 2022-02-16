@@ -1,0 +1,391 @@
+//form.css
+$form-max-width: $xs;
+$form-group-padding-y: 0.5em;
+$form-group-padding-x: 0.5em;
+$form-border-radius: $default-border-radius;
+
+$form-title-color: #00000080;
+
+$form-label-font-size: 0.8em;
+$form-label-spacing: 10px;
+$form-label-font-weigth: 600;
+
+$form-label-top: calc($form-group-padding-y + $form-label-spacing);
+$form-label-left: 2em;
+
+$form-input-border-color: #d2dae2;
+$form-input-font-size: 1em;
+$form-input-padding-left: 1em;
+$form-input-padding-top: calc($form-label-top + $form-label-spacing);
+$form-input-padding-bottom: $form-label-spacing;
+$form-input-padding-right: 1em;
+$form-input-padding: $form-input-padding-top $form-input-padding-right
+    $form-input-padding-bottom $form-input-padding-left;
+$form-input-line-height: $form-input-font-size * 1.2;
+$form-input-heigth: calc(
+    $form-input-padding-top + $form-input-padding-bottom + $font-size +
+        $form-input-font-size
+);
+$form-input-border: 1px solid $form-input-border-color;
+
+$select-box-div-padding-x: 1.5em;
+$select-box-div-padding-y: 0.5em;
+$select-box-input-padding-x: $select-box-div-padding-x;
+$select-box-input-padding-y: $select-box-div-padding-y;
+$select-box-input-height: 2em;
+$search-ico-left: 5px;
+$search-ico-top: 5px;
+$search-div-first-border-top: 1px solid $brand;
+
+$form-padding-x: 1em;
+$form-padding-y: 1em;
+$select-options-hover-bg: #f9f9f9;
+$form-label-width: 100px;
+$input-border-color: #d2dae2;
+$input-border: 1px solid $input-border-color;
+$input-border-active: 1px solid $brand;
+$select-transition: $default-transition;
+$label-font-size: 0.9em;
+$input-padding: calc($form-padding-y + $label-font-size + 10px) $form-padding-x
+    $form-padding-y $form-padding-x;
+$input-font-size: 1em;
+$input-height: calc(
+    $form-padding-y + $label-font-size + 20px + $form-padding-y +
+        $input-font-size
+);
+$input-padding-no-label: calc(($input-height - $font-size) / 2 + 2px)
+    $form-padding-x calc(($input-height - $font-size) / 2 + 2px) $form-padding-x;
+$select-padding: 0 $form-padding-x 0 $form-padding-x;
+
+$select-box-input-padding: $form-padding-y
+    calc($form-padding-x + ($search-ico-left * 2));
+$select-box-padding: $form-padding-y $form-padding-x;
+$select-box-item-size: calc(($form-padding-y * 2) + $input-font-size + 1em);
+$select-box-size: calc($select-box-item-size * 3);
+$card-box-shadow: 5px 5px 1em rgb(0 0 0 / 5%);
+$select-box-box-shadow: 2px 2px 0 $light-brand;
+$label-color: #495057bd;
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.field-validation-error.danger {
+    display: block;
+    width: 100%;
+    position: relative;
+    border: 1px solid $danger;
+    text-decoration: none;
+    padding: 0.5em 1em 0.5em 2em;
+    font-size: $form-input-font-size;
+    margin-bottom: 0.5em;
+    box-sizing: border-box;
+    margin-top: -1px;
+    color: $light !important;
+    background: $danger;
+    opacity: 0.8;
+
+    &::before {
+        font-family: "Font Awesome 5 Free";
+        content: "\f06a";
+        position: absolute;
+        top: calc(50% - 13px);
+        font-size: 16px;
+        left: 8px;
+    }
+}
+
+.form-actions {
+    padding: 0 $form-group-padding-x;
+}
+
+.form-title {
+    padding-left: calc($widget-padding + $form-group-padding-x);
+}
+
+.validation-summary-errors {
+    padding: $form-group-padding-y $form-group-padding-x;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: block;
+            width: 100%;
+            position: relative;
+            border: 1px solid $danger;
+            text-decoration: none;
+            padding: 0.5em 1em 0.5em 2em;
+            font-size: $form-input-font-size;
+            margin-bottom: 0.5em;
+            box-sizing: border-box;
+            margin-top: -1px;
+            color: $light !important;
+            background: $danger;
+            opacity: 0.8;
+
+            &::before {
+                font-family: "Font Awesome 5 Free";
+                content: "\f06a";
+                position: absolute;
+                top: calc(50% - 13px);
+                font-size: 16px;
+                left: 8px;
+            }
+        }
+    }
+}
+
+.form {
+    max-width: 100%;
+
+    &__header {
+        color: $form-title-color;
+        padding: 0 $form-group-padding-x;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__group {
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        padding: $form-group-padding-y $form-group-padding-x;
+        width: 100%;
+
+        label {
+            font-weight: $form-label-font-weigth;
+            color: $label-color;
+            position: absolute;
+            font-size: $form-label-font-size;
+            top: $form-label-top;
+            left: $form-label-left;
+            z-index: 2;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: $form-input-padding;
+            height: $form-input-heigth;
+            line-height: $form-input-line-height;
+            font-size: $form-input-font-size;
+            border: $form-input-border;
+            border-radius: $form-border-radius;
+            box-sizing: border-box;
+            width: 100%;
+            outline: none;
+            background-color: #fff;
+            margin: 0;
+            white-space: normal;
+            line-height: $input-font-size;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            z-index: 1;
+
+            &.nolabel {
+                padding: 6px $form-input-padding-left;
+                font-weight: 600;
+                color: $label-color;
+            }
+
+            &:focus,
+            &:active {
+                border: $input-border-active;
+                outline: none;
+            }
+        }
+
+        input:disabled {
+            background-color: $bg-default;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .input-validation-error {
+            border-color: $danger;
+        }
+
+        &--neworlist,
+        &--select {
+            position: relative;
+            background: transparent;
+
+            > select,
+            > input.select {
+                cursor: pointer;
+                caret-color: transparent;
+
+                &::-moz-selection {
+                    background: transparent;
+                }
+
+                &::selection {
+                    background: transparent;
+                }
+            }
+
+            .searchoptions,
+            .selectoptions {
+                display: block;
+                position: absolute;
+                max-height: 0;
+                overflow: auto;
+                z-index: 2;
+                width: 100%;
+                margin-top: -1px;
+                box-shadow: $select-box-box-shadow;
+                z-index: 100;
+
+                input,
+                div {
+                    border: none;
+                    padding: $select-box-div-padding-y $select-box-div-padding-x;
+                    box-shadow: 0 -1px 0px $brand;
+                    font-size: $input-font-size;
+                    background: $light;
+                    margin: 0;
+                    position: relative;
+                    border-radius: 0;
+                }
+                input {
+                    padding: $select-box-input-padding-y
+                        $select-box-input-padding-x;
+                    height: $select-box-input-height;
+                    border-bottom: $search-div-first-border-top;
+
+                    &:only-child {
+                        border-bottom: none;
+                    }
+
+                    &::placeholder {
+                        color: #0000002e;
+                    }
+                }
+
+                div {
+                    &:hover {
+                        cursor: pointer;
+                        background: $select-options-hover-bg;
+                    }
+                }
+            }
+
+            .selectoptions {
+                &.search::after {
+                    font-family: "Font Awesome 5 Free";
+                    content: "\f002";
+                    position: absolute;
+                    top: $search-ico-top;
+                    left: $search-ico-left;
+                    opacity: 0.5;
+                    z-index: 3;
+                }
+            }
+
+            &::after {
+                font-family: "Font Awesome 5 Free";
+                content: "\f078";
+                position: absolute;
+                height: $form-input-font-size;
+                font-size: $form-input-font-size;
+                right: $form-input-font-size;
+                top: calc(50% - $form-input-font-size * 0.7);
+                z-index: 1;
+                color: $form-title-color;
+            }
+
+            &.show {
+                & > input,
+                & > select {
+                    border: $input-border-active;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                    box-shadow: $select-box-box-shadow;
+                }
+
+                .searchoptions,
+                .selectoptions {
+                    max-height: $select-box-size;
+                    width: calc(100% - 2px);
+                    box-shadow: $select-box-box-shadow;
+                    border: 1px solid $brand;
+                    color: #00000080;
+
+                    .selected {
+                        background-color: $light-brand;
+                    }
+                }
+
+                &::after {
+                    font-family: "Font Awesome 5 Free";
+                    content: "\f077";
+                    position: absolute;
+                    height: $form-input-font-size;
+                    font-size: $form-input-font-size;
+                    right: $form-input-font-size;
+                    top: calc(50% - $form-input-font-size * 0.7);
+                    z-index: 1;
+                    color: $brand;
+                }
+            }
+        }
+    }
+
+    .card-box {
+        .card {
+            border: 1px solid rgb(0 0 0 / 5%);
+            box-shadow: $card-box-shadow;
+            margin-top: 10px;
+            border-radius: $form-border-radius;
+            &:first-of-type {
+                margin-top: 0px;
+            }
+
+            .card-title {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-weight: 600;
+                color: $form-title-color;
+                padding: $form-group-padding-y $form-group-padding-x;
+                margin: 0 0 0 0;
+                box-sizing: border-box;
+            }
+
+            .inline {
+                flex: 1;
+                min-width: 100%;
+                margin-top: 0;
+
+                * {
+                    max-width: 100%;
+                }
+            }
+
+            .card-errors {
+                padding: 0 $form-group-padding-x;
+            }
+        }
+    }
+
+    &.clearfix {
+        margin-bottom: calc($select-box-size - 4em);
+    }
+
+    &.clearfix-s {
+        margin-bottom: calc(($select-box-size / 2) - 4em);
+    }
+}
