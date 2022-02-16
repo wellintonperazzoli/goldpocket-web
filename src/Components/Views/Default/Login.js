@@ -49,7 +49,6 @@ export default class Login extends Component {
         }, (response) => {
             this.context.Login(response.data)
         }, (e) => {
-            console.log(e.response)
             if (!e.response) {
                 setTimeout(() => {
                     this.handleSubmit(event)
