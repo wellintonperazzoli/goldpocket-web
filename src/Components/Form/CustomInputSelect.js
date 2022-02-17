@@ -151,8 +151,10 @@ export default class CustomInputSelect extends Component {
                         <div className="selectoptions">
                             {
                                 this.props.options?.map((o, k) => {
+                                    let hide = o.trim().toUpperCase().includes(this.props.value.trim().toUpperCase()) ? "" : "d-none";
+                                    let selected = this.props.value === o? "selected": "";
                                     return (
-                                        <div ref={this.ref[k]} key={"div" + o + k} id={"div" + o + k} className={this.props.value === o ? 'selected' : ''} onMouseDown={this.select}>
+                                        <div ref={this.ref[k]} key={"div" + o + k} id={"div" + o + k} className={`${hide} ${selected}`} onMouseDown={this.select}>
                                             {o}
                                         </div>
                                     )

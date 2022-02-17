@@ -32,10 +32,10 @@ export default class AuthProvider extends Component {
     validateToken = () => {
         setInterval(() => {
             if(getTokenInvalidRequest() === "connection_refused"){
-                this.props.alertContext.newAlert("alert-danger", "Server offline, trying again")
+                this.props.alertContext.newAlert("alert-danger", "Error! Server probably offline.")
             } 
             else if(getTokenInvalidRequest() === "invalid_token") {
-                this.props.alertContext.newAlert("alert-danger", "Session expired, please login again")
+                this.props.alertContext.newAlert("alert-danger", "Session expired, please login again.")
                 setTokenInvalidRequest();
                 removeToken();
                 this.setState({

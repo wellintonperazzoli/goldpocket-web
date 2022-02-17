@@ -20,7 +20,8 @@ export default class CategoriesEdit extends FormComponent {
             formData: this.formData,
             errors: this.errors,
             redirect: false,
-            loading: true
+            loading: true,
+            submitted: false,
         }
     }
 
@@ -49,6 +50,9 @@ export default class CategoriesEdit extends FormComponent {
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.isValid()) {
+            this.setState({
+                submitted: true,
+            })
             RequestService.put(RequestUrl.Categories, {
                 id: this.state.formData.Id,
                 name: this.state.formData.Name,
@@ -59,6 +63,9 @@ export default class CategoriesEdit extends FormComponent {
                     redirect: true
                 })
             }, (e) => {
+                this.setState({
+                    submitted: false,
+                })
                 this.context.newAlert("alert-danger", (<p>{e.response?.data}</p>))
             })
         }
@@ -85,7 +92,11 @@ export default class CategoriesEdit extends FormComponent {
                         <form onSubmit={this.handleSubmit}>
                             <CategoriesForm formData={this.state.formData} updateForm={this.updateFormData} errors={this.state.errors} />
                             <div className="form-actions">
-                                <input type="submit" value="Update" className="btn-success mr-2" />
+                                {
+                                    this.state.submitted ? 
+                                    (<Loading />) :
+                                    <input type="submit" value="Update" className="btn-success mr-2" />
+                                }
                                 <BackButton />
                             </div>
                         </form>

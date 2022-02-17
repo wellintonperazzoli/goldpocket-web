@@ -35,7 +35,8 @@ export default class ExpensesEdit extends FormComponent {
         super(props)
         this.state = {
             redirect: false,
-            loading: true
+            loading: true,
+            submitted: false,
         }
     }
 
@@ -77,6 +78,9 @@ export default class ExpensesEdit extends FormComponent {
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.isValid()) {
+            this.setState({
+                submitted: true,
+            })
             let data = this.state.formData;
             let requestData = {
                 Id: this.props.params.id,
@@ -103,7 +107,9 @@ export default class ExpensesEdit extends FormComponent {
                     redirect: true
                 })
             }, (e) => {
-                console.log(e.response)
+                this.setState({
+                    submitted: false,
+                })
                 this.context.newAlert("alert-danger", (<p>{e.response?.data}</p>))
             })
         }
@@ -117,25 +123,37 @@ export default class ExpensesEdit extends FormComponent {
 
     addItem = (e) => {
         e.preventDefault();
-        const data = this.generateData({}, this.itemFields)
-        const items = this.state.formData.Items;
-        const itemerrors = this.state.errors.Items;
-        const validations = this.state.validations.Items;
+        let data = this.generateData({}, this.itemFields)
+        let formData = {...this.state.formData}
+        let errors = {...this.state.errors};
+        let validations = {...this.state.validations};
 
-        itemerrors.push(data[2])
-        validations.push(data[1])
-        items.push(data[0])
+        errors.Items.push(data[2])
+        validations.Items.push(data[1])
+        formData.Items.push(data[0])
+
+        this.setState({
+            formData: formData,
+            errors: errors,
+            validations: validations,
+        })
     }
 
     deleteItem = (e, key) => {
         e.preventDefault();
-        const items = this.state.formData.Items;
-        const itemerrors = this.state.errors.Items;
-        const validations = this.state.validations.Items;
-        if (items.length > 1) {
-            items.splice(key, 1);
-            validations.splice(key, 1);
-            itemerrors.splice(key, 1);
+        let formData = {...this.state.formData}
+        let errors = {...this.state.errors};
+        let validations = {...this.state.validations};
+        if (formData.Items.length > 1) {
+            errors.Items.splice(key, 1);
+            formData.Items.splice(key, 1);
+            validations.Items.splice(key, 1);
+
+            this.setState({
+                formData: formData,
+                errors: errors,
+                validations: validations,
+            })
         }
     }
 
@@ -153,7 +171,11 @@ export default class ExpensesEdit extends FormComponent {
                         <form onSubmit={this.handleSubmit}>
                             <ExpensesForm formData={this.state.formData} updateForm={this.updateFormData} errors={this.state.errors} updateErrors={this.updateErrors} addItem={this.addItem} deleteItem={this.deleteItem} />
                             <div className="form-actions">
-                                <input type="submit" value="Update" className="btn-success mr-2" />
+                                {
+                                    this.state.submitted ? 
+                                    (<Loading />) :
+                                    <input type="submit" value="Update" className="btn-success mr-2" />
+                                }
                                 <BackButton />
                             </div>
                         </form>

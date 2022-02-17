@@ -4,7 +4,7 @@ import { getToken, setTokenInvalidRequest } from "./TokenService";
 export default class RequestService {
     static request(type, url, data, action, exception) {
         let promisse;
-        
+
         let config = {
             method: type
         };
@@ -13,13 +13,13 @@ export default class RequestService {
         if (Array.isArray(url)) {
             var requests = [];
             let urls = [...url];
-            let datas = [...data]
+            let datas = data ? [...data] : [];
 
             for (let i = 0; i < url.length; i++) {
                 let requestConfig = { ...config }
                 requestConfig.url = urls[i]
                 requestConfig.data = datas[i]
-                requests.push(axios.request(config))
+                requests.push(axios.request(requestConfig))
             }
 
             promisse = Promise.all(requests);
@@ -32,18 +32,19 @@ export default class RequestService {
         promisse.then((r) => {
             setTokenInvalidRequest()
             action(r)
-        }).catch((e) => {
-            if(typeof exception === "function") {
-                exception(e)
+        }).catch((error) => {
+            if (typeof exception === "function") {
+                exception(error)
             }
-            else if (!e.response) {
+            else if (error.response && error.response.status === 401) {
+                setTokenInvalidRequest("invalid_token")
+            }
+            else {
                 setTimeout(() => {
                     setTokenInvalidRequest("connection_refused")
                     RequestService.request(type, url, data, action, exception)
                 }, 10000)
-            } else {
-                setTokenInvalidRequest("invalid_token")
-            }
+            } 
         })
     }
 

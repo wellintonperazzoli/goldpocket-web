@@ -5,6 +5,7 @@ import FormComponent from "../../../Form/FormComponent";
 import { alertContext } from "../../../../Providers/AlertProvider";
 import BackButton from "../../../Layout/BackButton";
 import RequestService from '../../../../Services/RequestService';
+import Loading from "../../../Layout/Loading";
 
 
 export default class CategoriesCreate extends FormComponent {
@@ -19,12 +20,16 @@ export default class CategoriesCreate extends FormComponent {
             formData: this.formData,
             errors: this.errors,
             redirect: false,
+            submitted: false,
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.isValid()) {
+            this.setState({
+                submitted: true,
+            })
             RequestService.post(RequestUrl.Categories, {
                 name: this.state.formData.Name,
                 type: this.state.formData.Type
@@ -34,6 +39,9 @@ export default class CategoriesCreate extends FormComponent {
                     redirect: true
                 })
             }, (e) => {
+                this.setState({
+                    submitted: false,
+                })
                 this.context.newAlert("alert-danger", (<p>{e.response?.data}</p>))
             })
         }
@@ -55,7 +63,11 @@ export default class CategoriesCreate extends FormComponent {
                         <form onSubmit={this.handleSubmit}>
                             <Form formData={this.state.formData} updateForm={this.updateFormData} errors={this.state.errors} />
                             <div className="form-actions">
-                                <input type="submit" value="Create" className="btn-success" />
+                                {
+                                    this.state.submitted ? 
+                                    (<Loading />) :
+                                    <input type="submit" value="Create" className="btn-success mr-2" />
+                                }
                                 <BackButton />
                             </div>
                         </form>

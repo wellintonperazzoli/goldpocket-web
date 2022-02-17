@@ -6,6 +6,7 @@ import { currentDate } from "../../../../Utils/Utils";
 import RequestUrl from "../../../../Config/RequestUrl";
 import BackButton from "../../../Layout/BackButton";
 import RequestService from "../../../../Services/RequestService";
+import Loading from "../../../Layout/Loading";
 
 
 export default class ExpensesCreate extends FormComponent {
@@ -40,12 +41,16 @@ export default class ExpensesCreate extends FormComponent {
             errors: this.errors,
             validations: this.validations,
             redirect: false,
+            submitted: false,
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.isValid()) {
+            this.setState({
+                submitted: true,
+            })
             let data = this.state.formData;
             let requestData = {
                 Location: data.Location,
@@ -71,6 +76,9 @@ export default class ExpensesCreate extends FormComponent {
                     redirect: true
                 })
             }, (e) => {
+                this.setState({
+                    submitted: false,
+                })
                 this.context.newAlert("alert-danger", (<p>{e.response?.data}</p>))
             })
         }
@@ -84,25 +92,37 @@ export default class ExpensesCreate extends FormComponent {
 
     addItem = (e) => {
         e.preventDefault();
-        const data = this.generateData({}, this.itemFields)
-        const items = this.state.formData.Items;
-        const itemerrors = this.state.errors.Items;
-        const validations = this.state.validations.Items;
+        let data = this.generateData({}, this.itemFields)
+        let formData = {...this.state.formData}
+        let errors = {...this.state.errors};
+        let validations = {...this.state.validations};
 
-        itemerrors.push(data[2])
-        validations.push(data[1])
-        items.push(data[0])
+        errors.Items.push(data[2])
+        validations.Items.push(data[1])
+        formData.Items.push(data[0])
+
+        this.setState({
+            formData: formData,
+            errors: errors,
+            validations: validations,
+        })
     }
 
     deleteItem = (e, key) => {
         e.preventDefault();
-        const items = this.state.formData.Items;
-        const itemerrors = this.state.errors.Items;
-        const validations = this.state.validations.Items;
-        if (items.length > 1) {
-            items.splice(key, 1);
-            validations.splice(key, 1);
-            itemerrors.splice(key, 1);
+        let formData = {...this.state.formData}
+        let errors = {...this.state.errors};
+        let validations = {...this.state.validations};
+        if (formData.Items.length > 1) {
+            errors.Items.splice(key, 1);
+            formData.Items.splice(key, 1);
+            validations.Items.splice(key, 1);
+
+            this.setState({
+                formData: formData,
+                errors: errors,
+                validations: validations,
+            })
         }
     }
 
@@ -119,7 +139,11 @@ export default class ExpensesCreate extends FormComponent {
                         <form onSubmit={this.handleSubmit}>
                             <ExpensesForm formData={this.state.formData} updateForm={this.updateFormData} errors={this.state.errors} updateErrors={this.updateErrors} addItem={this.addItem} deleteItem={this.deleteItem} />
                             <div className="form-actions">
-                                <input type="submit" value="Create" className="btn-success mr-2" />
+                                {
+                                    this.state.submitted ? 
+                                    (<Loading />) :
+                                    <input type="submit" value="Create" className="btn-success mr-2" />
+                                }
                                 <BackButton />
                             </div>
                         </form>

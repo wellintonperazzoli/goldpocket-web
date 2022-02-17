@@ -112,8 +112,8 @@ export default class ExpensesForm extends Component {
                     <div className="col-sm-4">
                         <CustomInput type="date" label="Date" name="Date" value={this.props.formData.Date} onChange={this.handleInnerInputChange} error={errors.Date} />
                     </div>
-                    {this.itemList()}
                 </div>
+                {this.itemList()}
                 <div className="row mt-1 mb-5">
                     <div className="col-9">
                         <CustomInput label="Description" name="Description" value={this.props.formData.Description} onChange={this.handleInnerInputChange} error={errors.Description} />
