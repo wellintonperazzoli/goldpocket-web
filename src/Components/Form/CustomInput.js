@@ -27,7 +27,7 @@ export default class CustomInput extends Component {
         return (
             <div className="form__group">
                 <label htmlFor={this.props.name}>{this.props.label}</label>
-                <input className={hasError ? "input-validation-error" : ""} autoComplete="off" type={type} id={this.props.name} name={this.props.name} value={this.props.value} disabled={this.props.disabled === true} onChange={this.onChange} />
+                <input className={hasError ? "input-validation-error" : ""} autoComplete="off" type={type} id={this.props.name} name={this.props.name} value={this.props.value} disabled={this.props.disabled === true} onChange={this.onChange} onWheel={(e) => e.target.blur()}/>
                 {this.errorMessage()}
             </div>
         )
