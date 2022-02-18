@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../../../assets/image/gp_600.png'
+import logo from '../../../assets/image/gp_400px.png'
 import RequestUrl from '../../../Config/RequestUrl';
 import { authContext } from '../../../Providers/AuthProvider';
 import RequestService from '../../../Services/RequestService';

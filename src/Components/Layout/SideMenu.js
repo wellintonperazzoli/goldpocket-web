@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
-import logo from '../../assets/image/gp_300.png'
+import logo from '../../assets/image/gp_400px.png'
 import { Link } from "react-router-dom";
 import { authContext } from '../../Providers/AuthProvider';
 
