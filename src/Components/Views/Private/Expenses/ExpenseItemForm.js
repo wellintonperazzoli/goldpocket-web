@@ -15,6 +15,8 @@ export default class ExpenseItemForm extends Component {
             itemOptions: [],
             autocompleteItem: [],
             itemMeasureTypes: [],
+            loadedItemMeasureTypes: [],
+            actualItemType: [],
             itemCategories: [],
         }
     }
@@ -22,13 +24,15 @@ export default class ExpenseItemForm extends Component {
     componentDidMount() {
         RequestService.multiple(
             'get',
-            [RequestUrl.autocompleteItem, RequestUrl.measureTypes, RequestUrl.itemCategories],
+            [RequestUrl.autocompleteItem, RequestUrl.measureTypes, RequestUrl.itemCategories, RequestUrl.itemMeasure ],
             null,
             (response) => {
                 this.setState({
                     itemOptions: response[0].data,
                     itemMeasureTypes: response[1].data,
+                    loadedItemMeasureTypes: response[1].data,
                     itemCategories: response[2].data,
+                    actualItemType: response[3].data,
                     loading: false,
                 })
             }
@@ -41,6 +45,25 @@ export default class ExpenseItemForm extends Component {
     }
 
     handleInputChange = (name, value) => {
+        if(name === "Name") {
+            let existingItemValue = this.state.actualItemType.find(x => x.name?.toUpperCase() === value?.toUpperCase())?.measureType;
+            if(existingItemValue !== undefined){
+                this.setState((state,props) => {
+                    let measuretype = state.itemMeasureTypes.filter(i => i.value === existingItemValue);
+                    this.props.onChange("Unit Type", existingItemValue, this.props.number)
+                    
+                    return ({
+                        itemMeasureTypes: measuretype
+                    });
+                });
+            } else {
+                this.setState((state, props) => ({
+                    itemMeasureTypes: state.loadedItemMeasureTypes
+                }))
+            }
+        }
+
+
         this.props.onChange(name, value, this.props.number)
     }
 

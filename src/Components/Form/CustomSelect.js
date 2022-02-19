@@ -82,6 +82,14 @@ export default class CustomSelect extends Component {
 
     }
 
+    componentDidUpdate() {
+        if(!this.props.options.find(o => o.label === this.state.selected)) {
+            this.setState({
+                selected: this.props.options.find(o => true).label
+            })
+        }
+    }
+
     toggleSelect = (e) => {
         this.setState({
             open: !this.state.open

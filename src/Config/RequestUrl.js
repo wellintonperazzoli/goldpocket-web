@@ -11,6 +11,7 @@ const RequestUrl = {
     Categories: BaseUrl + "/api/Categories/",
     categoryTypes: BaseUrl + "/api/autocomplete/categoryTypes",
     itemCategories: BaseUrl + "/api/autocomplete/itemcategory",
+    itemMeasure: BaseUrl + "/api/autocomplete/itemmeasure",
     expenseCategories: BaseUrl + "/api/autocomplete/expensecategory",
     autocompleteLocations: BaseUrl + "/api/autocomplete/location",
     autocompleteItem: BaseUrl + "/api/autocomplete/item",
