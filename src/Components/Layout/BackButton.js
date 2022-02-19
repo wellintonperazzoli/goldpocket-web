@@ -10,7 +10,11 @@ export default function BackButton(props) {
 
     return (
         <a href="/back" onClick={goBack}>
-            Back
+            {
+                props.children === undefined ? 
+                    "Back" :
+                    props.children
+            }
         </a>
     )
 }

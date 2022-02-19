@@ -10,6 +10,7 @@ export default class CustomInputSelect extends Component {
             loading: true,
             open: false,
             selected: '',
+            arrowSelected: '',
         }
 
         this.ref = [];
@@ -20,32 +21,40 @@ export default class CustomInputSelect extends Component {
         this.action = {
             ArrowDown: (e) => {
                 this.show()
-                var current = this.props.value;
+                var current = this.state.arrowSelected;
                 var options = this.props.options;
-                let name = this.props.name;
-                let elementId = 0;
-                for (let i = 0; i < options.length; i++) {
-                    if (options[i] === current) {
-                        let id = i + 1;
-                        let opt = options[id]
-                        elementId = i;
-                        if (i < options.length - 1) {
-                            this.props.onChange(name, opt)
-                            this.setState({
-                                selected: opt
-                            })
+
+                if (options.length > 0 && isEmpty(current)) {
+                    this.setState({
+                        arrowSelected: options[0]
+                    })
+                    return;
+                }
+                else {
+                    let elementId = 0;
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i] === current) {
+                            let id = i + 1;
+                            let opt = options[id]
+                            elementId = i;
+                            if (i < options.length - 1) {
+                                this.setState({
+                                    arrowSelected: opt
+                                })
+                            }
+                            break;
                         }
-                        break;
                     }
+
+                    this.ref[elementId < options.length - 1 ? elementId + 1 : elementId].current.scrollIntoView()
                 }
 
-                this.ref[elementId < options.length - 1 ? elementId + 1 : elementId].current.scrollIntoView()
+
             },
             ArrowUp: (e) => {
                 this.show()
-                var current = this.props.value;
+                var current = this.state.arrowSelected;
                 var options = this.props.options;
-                let name = this.props.name;
                 let elementId = 0;
                 for (let i = options.length - 1; i > 0; i--) {
                     if (options[i] === current) {
@@ -53,9 +62,8 @@ export default class CustomInputSelect extends Component {
                         if (i > 0) {
                             let id = i - 1;
                             let opt = options[id]
-                            this.props.onChange(name, opt)
                             this.setState({
-                                selected: opt
+                                arrowSelected: opt
                             })
                         }
                         break;
@@ -64,6 +72,9 @@ export default class CustomInputSelect extends Component {
                 this.ref[elementId > 0 ? elementId - 1 : elementId].current.scrollIntoView()
             },
             Enter: (e) => {
+                var current = this.state.arrowSelected;
+                let name = this.props.name;
+                this.props.onChange(name, current)
                 this.toggleSelect()
             }
         }
@@ -75,7 +86,7 @@ export default class CustomInputSelect extends Component {
 
         this.setState({
             loading: false,
-            selected: isEmpty(selected) ? "" : selected.label
+            selected: isEmpty(selected) ? "" : selected.label,
         })
 
     }
@@ -119,12 +130,12 @@ export default class CustomInputSelect extends Component {
         this.props.onChange(this.props.name, e.target.value)
     }
 
-    
+
 
     errorMessage = () => {
         let hasError = !isEmpty(this.props.error);
         let showError = this.props.showError === undefined ? true : this.props.showError;
-        if(showError) {
+        if (showError) {
             return (
                 <span className={hasError ? "danger field-validation-error" : "d-none"} data-valmsg-for="Name" data-valmsg-replace="true">
                     <span id={this.props.name + "-error"} >{this.props.error}</span>
@@ -147,14 +158,15 @@ export default class CustomInputSelect extends Component {
                 <div className="form__group">
                     <label htmlFor={this.props.name}>{this.props.label}</label>
                     <div className={this.state.open ? "form__group--select show" : "form__group--select"} >
-                        <input name={this.props.name}  className={hasError ? "input-validation-error" : ""} id={this.props.name} value={this.props.value} onMouseDown={this.toggleSelect} onFocus={this.show} onBlur={this.hide} onKeyDown={this.changeOption} onChange={this.onChange} />
+                        <input name={this.props.name} className={hasError ? "input-validation-error" : ""} id={this.props.name} value={this.props.value} onMouseDown={this.toggleSelect} onFocus={this.show} onBlur={this.hide} onKeyDown={this.changeOption} onChange={this.onChange} />
                         <div className="selectoptions">
                             {
                                 this.props.options?.map((o, k) => {
                                     let hide = o.trim().toUpperCase().includes(this.props.value.trim().toUpperCase()) ? "" : "d-none";
-                                    let selected = this.props.value === o? "selected": "";
+                                    let selected = this.props.value === o ? "selected" : "";
+                                    let arrowSelected = this.state.arrowSelected === o ? "soft-selected" : "";
                                     return (
-                                        <div ref={this.ref[k]} key={"div" + o + k} id={"div" + o + k} className={`${hide} ${selected}`} onMouseDown={this.select}>
+                                        <div ref={this.ref[k]} key={"div" + o + k} id={"div" + o + k} className={`${hide} ${selected} ${arrowSelected}`} onMouseDown={this.select}>
                                             {o}
                                         </div>
                                     )

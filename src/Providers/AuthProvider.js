@@ -23,7 +23,8 @@ export default class AuthProvider extends Component {
             isAuthenticated: !isEmpty(token),
             loading: false,
             Logout: this.Logout,
-            Login: this.Login
+            Login: this.Login,
+            Register: this.Register,
         })
 
         this.validateToken();
@@ -63,6 +64,10 @@ export default class AuthProvider extends Component {
         this.setState({
             token: getToken(),
         })
+    }
+
+    Register = (username) => {
+        this.props.alertContext.newAlert("alert-success", `User ${username} created! You are able to login now.`)
     }
 
     render() {

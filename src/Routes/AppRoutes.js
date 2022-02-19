@@ -19,6 +19,7 @@ import LocationsEdit from "../Components/Views/Private/Locations/LocationsEdit";
 import LocationsView from "../Components/Views/Private/Locations/LocationView";
 import ExpensesCreate from "../Components/Views/Private/Expenses/ExpensesCreate";
 import ExpensesEdit from "../Components/Views/Private/Expenses/ExpensesEdit";
+import Register from "../Components/Views/Default/Register";
 
 
 export class AppRoutes extends Component {
@@ -66,6 +67,7 @@ export class AppRoutes extends Component {
     return (
       <Router>
         <Routes>
+          <Route path="/Register" element={<AppRoute public={true} element={Register} />} />
           <Route path="*" element={<AppRoute public={true} element={Login} />} />
         </Routes>
       </Router>

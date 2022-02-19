@@ -323,6 +323,11 @@ input::-webkit-inner-spin-button {
                     border: 1px solid $brand;
                     color: #00000080;
 
+
+                    .soft-selected {
+                        background-color: $default;
+                    }
+                    
                     .selected {
                         background-color: $light-brand;
                     }
