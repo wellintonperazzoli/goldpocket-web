@@ -1,7 +1,7 @@
 export const toDate = (value) => {
     const d = new Date(value)
     let day = ("00" + d.getDate()).slice(-2);
-    let month = ("00" + d.getMonth()).slice(-2);
+    let month = ("00" + (d.getMonth() + 1)).slice(-2);
     return day + "/" + month + "/" + d.getFullYear();
 }
 
