@@ -20,73 +20,59 @@ export default class CustomInputSelect extends Component {
 
         this.action = {
             ArrowDown: (e) => {
-                this.show();
-
+                this.show()
                 var current = this.state.arrowSelected;
                 var options = this.props.options;
                 var filteredOptions = options.filter(o => o.trim().toUpperCase().includes(this.props.value.trim().toUpperCase()))
-                let elementId = 0;
 
-                if (filteredOptions.find(f => f === current) === undefined) {
-                    let opt = filteredOptions[0]
-                    elementId = options.findIndex(o => o === opt);
-
+                if (options.length > 0 && isEmpty(current)) {
                     this.setState({
-                        arrowSelected: opt
+                        arrowSelected: options[0]
                     })
-                    this.ref[elementId].current.scrollIntoView()
+                    return;
                 }
                 else {
-                    for (let i = 0; i < filteredOptions.length - 1; i++) {
-                        if (filteredOptions[i] === current) {
+                    let elementId = 0;
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i] === current) {
                             let id = i + 1;
-                            let opt = filteredOptions[id]
-                            elementId = options.findIndex(o => o === opt);
-
-                            this.setState({
-                                arrowSelected: opt
-                            })
-                            this.ref[elementId].current.scrollIntoView()
-
-                            break;
+                            let opt = options[id]
+                            elementId = i;
+                            if (filteredOptions.find(f => f === opt) !== undefined) {
+                                if (i < options.length - 1) {
+                                    this.setState({
+                                        arrowSelected: opt
+                                    })
+                                }
+                                break;
+                            }
                         }
                     }
+
+                    this.ref[elementId < options.length - 1 ? elementId + 1 : elementId].current.scrollIntoView()
                 }
+
+
             },
             ArrowUp: (e) => {
-                this.show();
-
+                this.show()
                 var current = this.state.arrowSelected;
                 var options = this.props.options;
-                var filteredOptions = options.filter(o => o.trim().toUpperCase().includes(this.props.value.trim().toUpperCase()))
                 let elementId = 0;
-
-                if (filteredOptions.find(f => f === current) === undefined) {
-                    let opt = filteredOptions[filteredOptions.length - 1]
-                    elementId = options.findIndex(o => o === opt);
-
-                    this.setState({
-                        arrowSelected: opt
-                    })
-                    this.ref[elementId].current.scrollIntoView()
-                }
-                else {
-
-                    for (let i = filteredOptions.length - 1; i > 0; i--) {
-                        if (filteredOptions[i] === current) {
+                for (let i = options.length - 1; i > 0; i--) {
+                    if (options[i] === current) {
+                        elementId = i;
+                        if (i > 0) {
                             let id = i - 1;
-                            let opt = filteredOptions[id]
-                            elementId = options.findIndex(o => o === opt);
-
+                            let opt = options[id]
                             this.setState({
                                 arrowSelected: opt
                             })
-                            this.ref[elementId].current.scrollIntoView()
-
-                            break;
                         }
+                        break;
                     }
                 }
+                this.ref[elementId > 0 ? elementId - 1 : elementId].current.scrollIntoView()
             },
             Enter: (e) => {
                 var current = this.state.arrowSelected;
@@ -105,6 +91,7 @@ export default class CustomInputSelect extends Component {
             loading: false,
             selected: isEmpty(selected) ? "" : selected.label,
         })
+
     }
 
     toggleSelect = (e) => {
