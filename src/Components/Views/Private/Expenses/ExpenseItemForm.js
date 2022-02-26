@@ -26,9 +26,7 @@ export default class ExpenseItemForm extends Component {
             'get',
             [RequestUrl.autocompleteItem, RequestUrl.measureTypes, RequestUrl.itemCategories, RequestUrl.itemMeasure ],
             null,
-            (response) => {
-                
-                console.log(response[3].data)
+            (response) => {                
                 this.setState({
                     itemOptions: response[0].data,
                     itemMeasureTypes: response[1].data,
