@@ -27,6 +27,8 @@ export default class ExpenseItemForm extends Component {
             [RequestUrl.autocompleteItem, RequestUrl.measureTypes, RequestUrl.itemCategories, RequestUrl.itemMeasure ],
             null,
             (response) => {
+                
+                console.log(response[3].data)
                 this.setState({
                     itemOptions: response[0].data,
                     itemMeasureTypes: response[1].data,
@@ -46,11 +48,14 @@ export default class ExpenseItemForm extends Component {
 
     handleInputChange = (name, value) => {
         if(name === "Name") {
-            let existingItemValue = this.state.actualItemType.find(x => x.name?.toUpperCase() === value?.toUpperCase())?.measureType;
+            let existingItem = this.state.actualItemType.find(x => x.name?.toUpperCase() === value?.toUpperCase());
+            let existingItemValue = existingItem?.measureType;
+            let existingItemCategory = existingItem?.category;
             if(existingItemValue !== undefined){
                 this.setState((state,props) => {
                     let measuretype = state.itemMeasureTypes.filter(i => i.value === existingItemValue);
                     this.props.onChange("Unit Type", existingItemValue, this.props.number)
+                    this.props.onChange("Category", existingItemCategory, this.props.number)
                     
                     return ({
                         itemMeasureTypes: measuretype

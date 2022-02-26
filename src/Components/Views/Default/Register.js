@@ -84,7 +84,7 @@ export default class Register extends Component {
 
     render() {
         if(this.state.registered)
-            return <Navigate to="Login"></Navigate>
+            return <Navigate to="/"></Navigate>
 
         return (
             <div className="row loginBox">
