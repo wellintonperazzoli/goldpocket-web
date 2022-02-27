@@ -20,6 +20,7 @@ export default class LocationsEdit extends FormComponent {
         this.state = {
             formData: this.formData,
             errors: this.errors,
+            validations: this.validations,
             redirect: false,
             loading: true
         }

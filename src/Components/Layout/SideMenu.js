@@ -136,6 +136,12 @@ export default class SideMenu extends Component {
                                 Categories
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/Savings" onClick={this.blackoutClick}>
+                                <i className="menu-icon fas fa-cash-register"></i>
+                                Savings
+                            </NavLink>
+                        </li>
                         <li className="menu-division"></li>
                         {/* <li>
                             <NavLink to="Profile">

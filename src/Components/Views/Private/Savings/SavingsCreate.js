@@ -1,21 +1,26 @@
 import RequestUrl from "../../../../Config/RequestUrl";
-import Form from "./CategoriesForm";
+import Form from "./SavingsForm";
 import { Navigate } from "react-router-dom";
 import FormComponent from "../../../Form/FormComponent";
 import { alertContext } from "../../../../Providers/AlertProvider";
 import BackButton from "../../../Layout/BackButton";
 import RequestService from '../../../../Services/RequestService';
 import Loading from "../../../Layout/Loading";
+import { currentDate } from "../../../../Utils/Utils";
 
 
-export default class CategoriesCreate extends FormComponent {
-    fields = ["Name:required", "Type:required", "Id"]
+const url = "/Savings/"
+const name = "Saving"
+export default class SavingsCreate extends FormComponent {
+    fields = ["Date:required", "Value:required", "Id"]
 
     static contextType = alertContext;
 
     constructor(props) {
         super(props)
-        this.getFormData();
+        this.getFormData({
+            Date: currentDate()
+        });
         this.state = {
             formData: this.formData,
             errors: this.errors,
@@ -23,6 +28,7 @@ export default class CategoriesCreate extends FormComponent {
             redirect: false,
             submitted: false,
         }
+
     }
 
     handleSubmit = (event) => {
@@ -31,11 +37,11 @@ export default class CategoriesCreate extends FormComponent {
             this.setState({
                 submitted: true,
             })
-            RequestService.post(RequestUrl.Categories, {
-                name: this.state.formData.Name,
-                type: this.state.formData.Type
+            RequestService.post(RequestUrl.Savings, {
+                dateTime: this.state.formData.Date,
+                value: this.state.formData.Value
             }, () => {
-                this.context.newAlert("alert-success", (<p>Category created!</p>))
+                this.context.newAlert("alert-success", (<p>{name} created!</p>))
                 this.setState({
                     redirect: true
                 })
@@ -51,14 +57,14 @@ export default class CategoriesCreate extends FormComponent {
     render() {
         if (this.state.redirect)
             return (
-                <Navigate to='/Categories' />
+                <Navigate to={url} />
             );
 
         return (
             <>
                 <div className="widget col-xxl-6">
                     <div className="widget__title form-title">
-                        New Category
+                        New {name}
                     </div>
                     <div className="widget__body">
                         <form onSubmit={this.handleSubmit}>

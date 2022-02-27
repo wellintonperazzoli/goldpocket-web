@@ -74,10 +74,13 @@ export default class FormComponent extends Component {
     }
 
     updateFormData = (name, value) => {
-        let data = {...this.state.formData};
-        let validations = {...this.state.validations}
-        let errors = {...this.state.errors}
+        let data = this.state.formData;
+        let validations = this.state.validations
+        let errors = this.state.errors
+
+    
         this.updateValue(name, value, data, validations, errors);
+
         this.setState({
             formData: data,
             errors: errors,

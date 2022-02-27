@@ -21,6 +21,7 @@ const RequestUrl = {
     expenseDoughnut: BaseUrl + "/api/Chart/expenseCategoryDoughnut",
     itemDoughnut: BaseUrl + "/api/Chart/itemCategoryDoughnut",
     currentMonth: BaseUrl + "/api/Utilities/current-month",
+    Savings: BaseUrl + "/api/Savings/",
 }
 
 

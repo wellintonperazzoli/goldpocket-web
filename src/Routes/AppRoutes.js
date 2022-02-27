@@ -20,6 +20,10 @@ import LocationsView from "../Components/Views/Private/Locations/LocationView";
 import ExpensesCreate from "../Components/Views/Private/Expenses/ExpensesCreate";
 import ExpensesEdit from "../Components/Views/Private/Expenses/ExpensesEdit";
 import Register from "../Components/Views/Default/Register";
+import SavingsIndex from "../Components/Views/Private/Savings/SavingsIndex";
+import SavingsView from "../Components/Views/Private/Savings/SavingsView";
+import SavingsCreate from "../Components/Views/Private/Savings/SavingsCreate";
+import SavingsEdit from "../Components/Views/Private/Savings/SavingsEdit";
 
 
 export class AppRoutes extends Component {
@@ -55,6 +59,12 @@ export class AppRoutes extends Component {
               <Route path=":id" element={<AppRoute element={CategoriesView} />} />
               <Route path="Create" element={<AppRoute element={CategoriesCreate} />} />
               <Route path="Edit/:id" element={<AppRoute element={CategoriesEdit} />} />
+            </Route>
+            <Route path="/Savings">
+              <Route index element={<AppRoute element={SavingsIndex} />} />
+              <Route path=":id" element={<AppRoute element={SavingsView} />} />
+              <Route path="Create" element={<AppRoute element={SavingsCreate} />} />
+              <Route path="Edit/:id" element={<AppRoute element={SavingsEdit} />} />
             </Route>
             <Route path="*" element={<AppRoute element={NotFound} />} />
           </Routes>

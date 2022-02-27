@@ -1,17 +1,17 @@
-import RequestUrl from "../../../../Config/RequestUrl";
-import Form from "./CategoriesForm";
 import { Navigate } from "react-router-dom";
 import FormComponent from "../../../Form/FormComponent";
+import Loading from "../../../Layout/Loading";
+import RequestUrl from "../../../../Config/RequestUrl";
+import CategoriesForm from "./SavingsForm";
+import { getDateInput, isEmpty } from "../../../../Utils/Utils";
 import { alertContext } from "../../../../Providers/AlertProvider";
 import BackButton from "../../../Layout/BackButton";
 import RequestService from '../../../../Services/RequestService';
-import Loading from "../../../Layout/Loading";
 
-
-export default class CategoriesCreate extends FormComponent {
-    fields = ["Name:required", "Type:required", "Id"]
-
+const url = "/Savings/"
+export default class SavingsEdit extends FormComponent {
     static contextType = alertContext;
+    fields = ["Date:required", "Value:required", "Id"]
 
     constructor(props) {
         super(props)
@@ -21,8 +21,31 @@ export default class CategoriesCreate extends FormComponent {
             errors: this.errors,
             validations: this.validations,
             redirect: false,
+            loading: true,
             submitted: false,
         }
+    }
+
+    componentDidMount() {
+        RequestService.get(RequestUrl.Savings + this.props.params.id, null, (response) => {
+            let data = response.data;
+            let formData = {
+                Date: getDateInput(data.dateTime),
+                Value: data.value,
+                Id: data.id
+            };
+
+            this.setState({
+                formData: formData,
+                loading: false,
+                redirect: isEmpty(data),
+                data: data,
+            })
+        }, () => {
+            this.setState({
+                redirect: true
+            })
+        })
     }
 
     handleSubmit = (event) => {
@@ -31,11 +54,12 @@ export default class CategoriesCreate extends FormComponent {
             this.setState({
                 submitted: true,
             })
-            RequestService.post(RequestUrl.Categories, {
-                name: this.state.formData.Name,
-                type: this.state.formData.Type
-            }, () => {
-                this.context.newAlert("alert-success", (<p>Category created!</p>))
+            RequestService.put(RequestUrl.Savings, {
+                id: this.state.formData.Id,
+                dateTime: this.state.formData.Date,
+                value: this.state.formData.Value
+            }, (e) => {
+                this.context.newAlert("alert-success", (<p>Saving {this.state.formData.Name} updated!</p>))
                 this.setState({
                     redirect: true
                 })
@@ -51,23 +75,28 @@ export default class CategoriesCreate extends FormComponent {
     render() {
         if (this.state.redirect)
             return (
-                <Navigate to='/Categories' />
+                <Navigate to={url} />
             );
+
+        if (this.state.loading)
+            return (
+                <Loading />
+            )
 
         return (
             <>
                 <div className="widget col-xxl-6">
                     <div className="widget__title form-title">
-                        New Category
+                        Edit Saving
                     </div>
                     <div className="widget__body">
                         <form onSubmit={this.handleSubmit}>
-                            <Form formData={this.state.formData} updateForm={this.updateFormData} errors={this.state.errors} />
+                            <CategoriesForm formData={this.state.formData} updateForm={this.updateFormData} errors={this.state.errors} />
                             <div className="form-actions">
                                 {
                                     this.state.submitted ? 
                                     (<Loading />) :
-                                    <input type="submit" value="Create" className="btn-success mr-2" />
+                                    <input type="submit" value="Update" className="btn-success mr-2" />
                                 }
                                 <BackButton />
                             </div>
